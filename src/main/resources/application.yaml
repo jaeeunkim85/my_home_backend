@@ -1,0 +1,45 @@
+server:
+  port: ${PORT:8090}
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  messages:
+    basename: messages
+    encoding: UTF-8
+  mail:
+
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+  datasource:
+ 
+  driver-class-name: org.mariadb.jdbc.Driver
+  hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+  servlet:
+    multipart:
+      max-file-size: ${SPRING_SERVLET_MULTIPART_FILE_SIZE:30MB}
+      max-request-size: ${SPRING_SERVLET_MULTIPART_FILE_SIZE:30MB}
+  thymeleaf:
+    cache: false
+
+mybatis:
+  type-aliases-package: com.shop.domain.model
+  mapper-locations: mappers/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
