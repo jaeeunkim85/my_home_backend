@@ -45,24 +45,26 @@ public class FileSaverService {
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, regionName))
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
                 .build();
-
+        log.error("accessKey  " + accessKey);
+        log.error("secretKey  " + secretKey);
         String bucketName = "project-blog";
         FileUpload fileUpload = new FileUpload();
         // create folder
-        String folderName = "image/";
+//        String folderName = "image/";
 
-        ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(0L);
-        objectMetadata.setContentType("application/x-directory");
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName, new ByteArrayInputStream(new byte[0]), objectMetadata);
+//        ObjectMetadata objectMetadata = new ObjectMetadata();
+//        objectMetadata.setContentLength(0L);
+//        objectMetadata.setContentType("application/x-directory");
+//        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folderName, new ByteArrayInputStream(new byte[0]), objectMetadata);
+//
+//        try {
+//            s3.putObject(putObjectRequest);
+//        } catch (AmazonS3Exception e) {
+//            e.printStackTrace();
+//        } catch (SdkClientException e) {
+//            e.printStackTrace();
+//        }
 
-        try {
-            s3.putObject(putObjectRequest);
-        } catch (AmazonS3Exception e) {
-            e.printStackTrace();
-        } catch (SdkClientException e) {
-            e.printStackTrace();
-        }
 
         for (MultipartFile multipartFile : files) {
             String filename = multipartFile.getOriginalFilename();

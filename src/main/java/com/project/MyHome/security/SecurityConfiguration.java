@@ -15,7 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/chk").permitAll()    // LoadBalancer Chk
+                .antMatchers("/**", "/v1/*").permitAll()
                 .anyRequest().permitAll()
                 .and();
 
