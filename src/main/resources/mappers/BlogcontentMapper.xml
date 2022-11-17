@@ -27,9 +27,25 @@
     </insert>
 
     <select id="getBlogList" parameterType="com.project.MyHome.domain.request.BlogListRequest" resultType="com.project.MyHome.domain.model.BlogListModel">
-        SELECT title, content, thumImage, createdate, updatedate
+        SELECT id, title, content, thumImage, createdate, updatedate
         FROM blog_content
         WHERE categoryNum = (SELECT a.id FROM category_list a WHERE a.categoryRouter = #{category})
     </select>
 
+    <select id="getBlogDetail" parameterType="long" resultType="com.project.MyHome.domain.model.BlogListModel">
+        SELECT  title, content, thumImage, categoryName, createdate, updatedate
+        FROM blog_content
+        WHERE id = #{blogid}
+    </select>
+
+    <update id="blogDetailUpdate" parameterType="com.project.MyHome.domain.request.BlogEditRequest" >
+        UPDATE  blog_content
+        SET  title = #{title},
+          content = #{content},
+          thumImage = #{thumImage},
+          categoryName =  #{category},
+          categoryNum = #{categoryNum},
+          updatedate = NOW()
+        WHERE id = #{id}
+    </update>
 </mapper>

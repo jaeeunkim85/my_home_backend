@@ -14,6 +14,8 @@ public class BlogListModel {
 
     String fileName;
 
+    String categoryName;
+
     String createDate;
 
     String updateDate;

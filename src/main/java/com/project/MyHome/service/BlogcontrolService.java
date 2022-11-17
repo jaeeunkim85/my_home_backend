@@ -3,6 +3,7 @@ package com.project.MyHome.service;
 
 import com.project.MyHome.domain.model.Category;
 import com.project.MyHome.domain.request.BlogCreateRequest;
+import com.project.MyHome.domain.request.BlogEditRequest;
 import com.project.MyHome.domain.request.BlogListRequest;
 import com.project.MyHome.mapper.BlogcontentMapper;
 import com.project.MyHome.response.Response;
@@ -64,5 +65,19 @@ public class BlogcontrolService {
         log.error("category = " + blogListRequest.getCategory());
 
         return blogListRequest;
+    }
+
+    public Response getBlogDetail(long blogid) {
+        Response result = Response.from();
+        result.setData(blogcontentMapper.getBlogDetail(blogid));
+        return result;
+    }
+
+    public Response blogDetailUpdate(BlogEditRequest blogEditRequest, MultipartFile[] files) throws Exception{
+        Response result = Response.from();
+        blogEditRequest.setCategoryNum(blogcontentMapper.getCategoryNum(blogEditRequest.getCategory()));
+        blogcontentMapper.blogDetailUpdate(blogEditRequest);
+        result.setData(true);
+        return result;
     }
 }

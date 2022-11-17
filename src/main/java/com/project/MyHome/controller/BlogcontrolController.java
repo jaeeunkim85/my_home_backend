@@ -4,6 +4,7 @@ package com.project.MyHome.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.MyHome.domain.model.BlogListModel;
 import com.project.MyHome.domain.request.BlogCreateRequest;
+import com.project.MyHome.domain.request.BlogEditRequest;
 import com.project.MyHome.domain.request.BlogListRequest;
 import com.project.MyHome.service.BlogcontrolService;
 import lombok.extern.slf4j.Slf4j;
@@ -65,6 +66,19 @@ public class BlogcontrolController {
             return blogcontrolService.getBlogList(request);
         };
     }
+    @GetMapping(value = "/{blogid}" , produces = "application/json;charset=utf-8")
+    public Callable<Object> getBlogDetail(final HttpServletRequest request, @PathVariable long blogid) throws Exception {
+        return () -> {
+            return blogcontrolService.getBlogDetail(blogid);
+        };
+    }
 
-
+    @PostMapping(value ="edit", produces = "application/json;charset=utf-8")
+    public Callable<Object> blogDetailUpdate(final HttpServletRequest request, @RequestParam("blogEditInfo") String blogEditInfo, @RequestPart(required = false) MultipartFile[] fileList) throws Exception {
+        return () -> {
+            log.error("createBolog");
+            BlogEditRequest blogEditRequest = new ObjectMapper().readValue(blogEditInfo, BlogEditRequest.class);
+            return blogcontrolService.blogDetailUpdate(blogEditRequest, fileList);
+        };
+    }
 }
